@@ -4,12 +4,12 @@
  * License: MIT, see file 'LICENSE'
  */
 
-import {UiComponent} from "../../lib/cm-web-modules/app/Component.js"
-import {Chessboard, COLOR, INPUT_EVENT_TYPE, PIECE} from "../../lib/cm-chessboard/Chessboard.js"
-import {MOVE_CANCELED_REASON} from "../../lib/cm-chessboard/view/VisualMoveInput.js"
-import {Chess} from "../../lib/cm-chess/Chess.js"
-import {Cookie} from "../../lib/cm-web-modules/cookie/Cookie.js"
-import {Bind} from "../../lib/bind.mjs/Bind.js";
+import {UiComponent} from "../../deps/cm-web-modules/app/Component.js"
+import {Chessboard, COLOR, INPUT_EVENT_TYPE, PIECE} from "../../deps/cm-chessboard/Chessboard.js"
+import {MOVE_CANCELED_REASON} from "../../deps/cm-chessboard/view/VisualMoveInput.js"
+import {Chess} from "../../deps/cm-chess/Chess.js"
+import {Cookie} from "../../deps/cm-web-modules/cookie/Cookie.js"
+import {Bind} from "../../deps/bind.mjs/Bind.js";
 
 export const EDIT_MODE = {
     move: "move",
@@ -22,7 +22,7 @@ export class FenEditor extends UiComponent {
     constructor(context, props) {
         props = Object.assign({
             fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-            spriteUrl: "./node_modules/cm-chessboard/assets/images/chessboard-sprite.svg",
+            spriteUrl: "./deps/cm-chessboard/assets/images/chessboard-sprite.svg",
             onChange: undefined,
             cookieName: "cfe-fen" // set to null, if you don't want to persist the position
         }, props)

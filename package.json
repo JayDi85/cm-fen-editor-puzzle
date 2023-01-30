@@ -1,7 +1,7 @@
 {
   "name": "cm-fen-editor",
   "version": "3.0.0",
-  "description": "A FEN editor for web – uses Bootstrap 4 and cm-chessboard",
+  "description": "A FEN editor for web (puzzle edition)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"No test specified\"",
@@ -9,27 +9,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shaack/cm-fen-editor.git"
+    "url": "git+https://github.com/JayDi85/cm-fen-editor-puzzle.git"
   },
   "keywords": [
     "chess",
     "fen",
     "bootstrap 4",
-    "cm-chessboard"
+    "cm-chessboard",
+    "puzzle"
   ],
-  "author": "Stefan Haack (shaack.com)",
+  "author": "Stefan Haack (shaack.com), modified by JayDi85",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shaack/cm-fen-editor/issues"
+    "url": "https://github.com/JayDi85/cm-fen-editor-puzzle/issues"
   },
-  "homepage": "https://github.com/shaack/cm-fen-editor#readme",
+  "homepage": "https://github.com/JayDi85/cm-fen-editor-puzzle#readme",
   "dependencies": {
-    "bind.mjs": "^1.1.0",
-    "bootstrap": "^5.2.0",
-    "chess.mjs": "^1.2.0",
-    "cm-chess": "^2.3.4",
-    "cm-chessboard": "^5.1.9",
-    "cm-web-modules": "^1.18.5",
+    "bind.mjs": "file:./deps/bind.mjs/Bind.js",
+    "bootstrap": "file:./deps/bootstrap/bootstrap.bundle.js",
+    "cm-chess": "file:./deps/cm-chess/Chess.js",
+    "cm-chessboard": "file:./deps/cm-chessboard/Chessboard.js",
+    "cm-web-modules": "file:./deps/cm-web-modules",
     "modlib": "^1.2.10",
     "popper.js": "^1.16.1"
   }

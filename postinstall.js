@@ -5,9 +5,10 @@
 
 const modLib = new (require("modlib"))
 
-modLib.add("cm-web-modules")
-modLib.add("cm-chessboard")
-modLib.add("cm-chess")
-modLib.add("chess.mjs")
-modLib.add("bind.mjs")
-modLib.add("cm-pgn")
+// no needs, all dependencies in deps folder
+//modLib.add("cm-web-modules")
+//modLib.add("cm-chessboard")
+//modLib.add("cm-chess")
+//modLib.add("chess.mjs")
+//modLib.add("bind.mjs")
+//modLib.add("cm-pgn")
