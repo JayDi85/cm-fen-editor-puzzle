@@ -13,7 +13,8 @@ export const PIECES = {
     b: {name: "bishop", value: 3},
     r: {name: "rook", value: 5},
     q: {name: "queen", value: 9},
-    k: {name: "king", value: Infinity}
+    k: {name: "king", value: Infinity},
+    w: {name: "wall", value: 1},
 }
 
 export const COLOR = {
