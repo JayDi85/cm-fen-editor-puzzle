@@ -5,9 +5,10 @@
  */
 
 import {UiComponent} from "../../deps/cm-web-modules/app/Component.js"
-import {Chessboard, COLOR, INPUT_EVENT_TYPE, PIECE} from "../../deps/cm-chessboard/Chessboard.js"
+import {Chessboard, COLOR, INPUT_EVENT_TYPE, PIECE, MARKER_TYPE} from "../../deps/cm-chessboard/Chessboard.js"
 import {MOVE_CANCELED_REASON} from "../../deps/cm-chessboard/view/VisualMoveInput.js"
 import {Chess} from "../../deps/cm-chess/Chess.js"
+import {Chess as ChessJs, algebraic} from "../../deps/chess.mjs/Chess.js"
 import {Cookie} from "../../deps/cm-web-modules/cookie/Cookie.js"
 import {Bind} from "../../deps/bind.mjs/Bind.js";
 
@@ -145,10 +146,20 @@ export class FenEditor extends UiComponent {
     switchMode(toMode) {
         this.chessboard.disableMoveInput()
         this.chessboard.disableSquareSelect()
+
+        // draw possible moves as additional markers
         switch (toMode) {
             case EDIT_MODE.move:
                 this.chessboard.enableMoveInput((event) => {
+                    this.chessboard.removeMarkers();
                     if (event.type === INPUT_EVENT_TYPE.moveStart) {
+                        let currentPiece = this.chessboard.getPiece(event.square);
+                        let cjs = new ChessJs(this.prepareNewFen(currentPiece.charAt(0)));
+                        let possibleMoves = cjs.generate_moves({legal: true, square: event.square});
+                        console.log("possible moves", possibleMoves);
+                        possibleMoves.forEach(move => {
+                            this.chessboard.addMarker(MARKER_TYPE.circle, algebraic(move.to));
+                        });
                         this.moveStartEvent = event
                         this.moveStartEvent.piece = this.chessboard.getPiece(event.square)
                     } else if (event.type === INPUT_EVENT_TYPE.moveCanceled && event.reason === MOVE_CANCELED_REASON.movedOutOfBoard) {
@@ -160,6 +171,7 @@ export class FenEditor extends UiComponent {
                 break
             case EDIT_MODE.erase:
                 this.chessboard.enableMoveInput((event) => {
+                    this.chessboard.removeMarkers();
                     if (event.type === INPUT_EVENT_TYPE.moveStart) {
                         this.chessboard.setPiece(event.square, undefined)
                         this.updateFen()
@@ -168,6 +180,7 @@ export class FenEditor extends UiComponent {
                 })
                 break
             default: // the pieces buttons
+                this.chessboard.removeMarkers();
                 this.chessboard.enableSquareSelect((event) => {
                     this.chessboard.setPiece(event.square, this.state.mode)
                     this.updateFen()
@@ -231,9 +244,7 @@ export class FenEditor extends UiComponent {
         clearTimeout(this.debounceFen)
         this.debounceFen = setTimeout(() => {
             if (this.state.fenValid) {
-                const newFen = this.chessboard.getPosition() + " " +
-                    this.state.colorToPlay + " " +
-                    (this.state.castling.length > 0 ? this.state.castling.join("") : "-") + " - 0 1"
+                const newFen = this.prepareNewFen();
                 if (newFen !== this.state.fen) {
                     this.state.fen = newFen
                 }
@@ -242,5 +253,15 @@ export class FenEditor extends UiComponent {
                 }
             }
         })
+    }
+
+    prepareNewFen() {
+        return this.prepareNewFen(this.state.colorToPlay);
+    }
+
+    prepareNewFen(colorToPlay) {
+        return this.chessboard.getPosition() + " " +
+                    colorToPlay + " " +
+                    (this.state.castling.length > 0 ? this.state.castling.join("") : "-") + " - 0 1";
     }
 }

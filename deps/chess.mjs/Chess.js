@@ -213,7 +213,7 @@ function file(i) {
     return i & 15
 }
 
-function algebraic(i) {
+export function algebraic(i) {
     var f = file(i),
         r = rank(i)
     return 'abcdefgh'.substring(f, f + 1) + '87654321'.substring(r, r + 1)
@@ -1422,6 +1422,10 @@ export const Chess = function (fen) {
 
         validate_fen: function (fen) {
             return validate_fen(fen)
+        },
+
+        generate_moves: function (Options) {
+            return generate_moves(Options)
         },
 
         fen: function () {
