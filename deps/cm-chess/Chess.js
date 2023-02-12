@@ -15,6 +15,7 @@ export const PIECES = {
     q: {name: "queen", value: 9},
     k: {name: "king", value: Infinity},
     w: {name: "wall", value: 1},
+    c: {name: "candy", value: 1},
 }
 
 export const COLOR = {

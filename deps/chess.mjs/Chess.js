@@ -25,7 +25,7 @@
  *
  *----------------------------------------------------------------------------*/
 
-const SYMBOLS = 'pnbrqkwPNBRQKW'
+const SYMBOLS = 'pnbrqkwсPNBRQKWС'
 
 const DEFAULT_POSITION =
     'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
@@ -261,6 +261,7 @@ export const ROOK = 'r'
 export const QUEEN = 'q'
 export const KING = 'k'
 export const PUZZLE_WALL = 'w'
+export const PUZZLE_CANDY = 'c'
 
 export const SQUARES = (function () {
     /* from the ECMA-262 spec (section 12.6.4):
@@ -477,7 +478,7 @@ export const Chess = function (fen) {
                     sum_fields += parseInt(rows[i][k], 10)
                     previous_was_number = true
                 } else {
-                    if (!/^[prnbqkwPRNBQKW]$/.test(rows[i][k])) {
+                    if (!/^[prnbqkwcPRNBQKWC]$/.test(rows[i][k])) {
                         return { valid: false, error_number: 9, error: errors[9] }
                     }
                     sum_fields += 1

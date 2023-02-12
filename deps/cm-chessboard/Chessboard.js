@@ -35,8 +35,8 @@ export const MARKER_TYPE = {
     circle: {class: "marker-circle", slice: "markerCircle"}
 }
 export const PIECE = {
-    wp: "wp", wb: "wb", wn: "wn", wr: "wr", wq: "wq", wk: "wk", ww: "ww",
-    bp: "bp", bb: "bb", bn: "bn", br: "br", bq: "bq", bk: "bk", bw: "bw"
+    wp: "wp", wb: "wb", wn: "wn", wr: "wr", wq: "wq", wk: "wk", ww: "ww", wc: "wc",
+    bp: "bp", bb: "bb", bn: "bn", br: "br", bq: "bq", bk: "bk", bw: "bw", bc: "bc",
 }
 
 export class Chessboard {

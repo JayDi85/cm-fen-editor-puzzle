@@ -14,8 +14,8 @@ import {Bind} from "../../deps/bind.mjs/Bind.js";
 export const EDIT_MODE = {
     move: "move",
     erase: "erase",
-    wk: "wk", wq: "wq", wr: "wr", wb: "wb", wn: "wn", wp: "wp", ww: "ww",
-    bk: "bk", bq: "bq", br: "br", bb: "bb", bn: "bn", bp: "bp", bw: "bw"
+    wk: "wk", wq: "wq", wr: "wr", wb: "wb", wn: "wn", wp: "wp", ww: "ww", wc: "wc",
+    bk: "bk", bq: "bq", br: "br", bb: "bb", bn: "bn", bp: "bp", bw: "bw", bc: "bc",
 }
 
 export class FenEditor extends UiComponent {
