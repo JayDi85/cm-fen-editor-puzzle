@@ -25,7 +25,7 @@
  *
  *----------------------------------------------------------------------------*/
 
-const SYMBOLS = 'pnbrqkwсPNBRQKWС'
+const SYMBOLS = 'pnbrqkwcPNBRQKWC'
 
 const DEFAULT_POSITION =
     'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
@@ -498,7 +498,6 @@ export const Chess = function (fen) {
         }
 
         /* everything's okay! */
-        console.log("valid fen");
         return { valid: true, error_number: 0, error: errors[0] }
     }
 
@@ -735,32 +734,34 @@ export const Chess = function (fen) {
                 for (j = 2; j < 4; j++) {
                     var square = i + PAWN_OFFSETS[us][j]
                     if (square & 0x88) continue
-
-                    if (board[square] != null && board[square].color === them) {
+                    if (board[square] != null && board[square].color === them && board[square].type != PUZZLE_WALL) {
                         add_move(board, moves, i, square, BITS.CAPTURE)
                     } else if (square === ep_square) {
                         add_move(board, moves, i, ep_square, BITS.EP_CAPTURE)
                     }
                 }
             } else if (piece_type === true || piece_type === piece.type) {
-                for (var j = 0, len = PIECE_OFFSETS[piece.type].length; j < len; j++) {
-                    var offset = PIECE_OFFSETS[piece.type][j]
-                    var square = i
-
-                    while (true) {
-                        square += offset
-                        if (square & 0x88) break
-
-                        if (board[square] == null) {
-                            add_move(board, moves, i, square, BITS.NORMAL)
-                        } else {
-                            if (board[square].color === us) break
-                            add_move(board, moves, i, square, BITS.CAPTURE)
-                            break
+                if (piece.type != PUZZLE_WALL && piece.type != PUZZLE_CANDY) {
+                    for (var j = 0, len = PIECE_OFFSETS[piece.type].length; j < len; j++) {
+                        var offset = PIECE_OFFSETS[piece.type][j]
+                        var square = i
+    
+                        while (true) {
+                            square += offset
+                            if (square & 0x88) break
+    
+                            if (board[square] == null) {
+                                add_move(board, moves, i, square, BITS.NORMAL)
+                            } else {
+                                if (board[square].color === us) break
+                                if (board[square].type === PUZZLE_WALL) break
+                                add_move(board, moves, i, square, BITS.CAPTURE)
+                                break
+                            }
+    
+                            /* break, if knight or king */
+                            if (piece.type === 'n' || piece.type === 'k') break
                         }
-
-                        /* break, if knight or king */
-                        if (piece.type === 'n' || piece.type === 'k') break
                     }
                 }
             }
@@ -1215,7 +1216,7 @@ export const Chess = function (fen) {
                 var overly_disambiguated = false
 
                 var matches = clean_move.match(
-                    /([pnbrqkPNBRQK])?([a-h][1-8])x?-?([a-h][1-8])([qrbnQRBN])?/
+                    /([pnbrqkwcPNBRQKWC])?([a-h][1-8])x?-?([a-h][1-8])([qrbnQRBN])?/
                 )
                 if (matches) {
                     var piece = matches[1]
@@ -1232,7 +1233,7 @@ export const Chess = function (fen) {
                     // when there is one legal knight move to e7). In this case, the value
                     // of 'from' variable will be a rank or file, not a square.
                     var matches = clean_move.match(
-                        /([pnbrqkPNBRQK])?([a-h]?[1-8]?)x?-?([a-h][1-8])([qrbnQRBN])?/
+                        /([pnbrqkwcPNBRQKWC])?([a-h]?[1-8]?)x?-?([a-h][1-8])([qrbnQRBN])?/
                     )
 
                     if (matches) {
