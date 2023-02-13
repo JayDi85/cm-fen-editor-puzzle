@@ -156,7 +156,7 @@ export class FenEditor extends UiComponent {
                         let currentPiece = this.chessboard.getPiece(event.square);
                         let cjs = new ChessJs(this.prepareNewFen(currentPiece.charAt(0)));
                         let possibleMoves = cjs.generate_moves({legal: true, square: event.square});
-                        console.log("possible moves", possibleMoves);
+                        //console.log("possible moves", possibleMoves);
                         possibleMoves.forEach(move => {
                             this.chessboard.addMarker(MARKER_TYPE.circle, algebraic(move.to));
                         });
